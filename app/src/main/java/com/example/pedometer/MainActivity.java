@@ -23,7 +23,7 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SENSOR_CODE=567;
-    public static float STEPS=1;
+    public static float STEPS=0;
     private int[] upperBounds={50,100,200,250,500,1000,2000,2500,3000,5000,10000};
 
     ListView listView;
@@ -57,40 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
         Intent StepsIntent = new Intent(getApplicationContext(), StepListener.class);
         startService(StepsIntent);
+
         update();
-        //handler for updating values and steps daily
-//        final Handler handler=new Handler();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                updateValues();
-//                //set steps to 0 at start of the day
-//                SimpleDateFormat sdf=new SimpleDateFormat("HH:mm:ss");
-//                sdf.setTimeZone(TimeZone.getTimeZone("IST"));
-//                String timeNow=sdf.format(new Date());
-//                if(timeNow.equals("00:00:00")||timeNow.equals("00:00:01")||timeNow.equals("00:00:02")){
-//                    STEPS=0;
-//                }
-//
-//                handler.postDelayed(this,3000);
-//            }
-//        });
+
         write();
-        //handler for updating database
-//        final Handler writeHandler=new Handler();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                SimpleDateFormat sdf=new SimpleDateFormat("E,d MM YYYY");
-//                sdf.setTimeZone(TimeZone.getTimeZone("IST"));
-//                String dateNow=sdf.format(new Date());
-//                //String datenow=new SimpleDateFormat("E,d MM YYYY").format(Calendar.getInstance().getTime());
-//                db.writeTo(dateNow,(int) (STEPS*0.762),(float)(STEPS*0.762*0.76));
-//                writeHandler.postDelayed(this,3600000);
-//            }
-//        });
 
     }
+
     public void update(){
         final Handler handler=new Handler();
         handler.post(new Runnable() {
@@ -106,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     STEPS=0;
                 }
 
-                handler.postDelayed(this,2000);
+                handler.postDelayed(this,1000);
             }
         });
 
@@ -120,14 +93,14 @@ public class MainActivity extends AppCompatActivity {
                 sdf.setTimeZone(TimeZone.getTimeZone("IST"));
                 String dateNow=sdf.format(new Date());
                 //String datenow=new SimpleDateFormat("E,d MM YYYY").format(Calendar.getInstance().getTime());
-                db.writeTo(dateNow,(int)(STEPS*0.762),(float)(STEPS*0.762*0.76));
+                db.writeTo(dateNow,(int)(STEPS*0.762),(float)((int)(STEPS*0.762)*0.76));
 
                 writeHandler.postDelayed(this,3600000);
             }
         });
     }
     public void updateValues(){
-        stepsView.setText(""+STEPS);
+        stepsView.setText(STEPS+"\n STEPS");
 
         int m= (int) (STEPS*0.762);
         distanceInMeters.setText(m+"\n Meters");
@@ -136,15 +109,25 @@ public class MainActivity extends AppCompatActivity {
         caloriesBurnt.setText(caloriesc+"\n Calories Burnt");
 
         //Set it from array
-        pBar.setMax(100);
+        for(int i:upperBounds){
+            if(STEPS<i){
+                pBar.setMax(i);
+                break;
+            }
+        }
         pBar.setProgress((int) STEPS);
 
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        write();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        write();
         STEPS=0;
     }
 }

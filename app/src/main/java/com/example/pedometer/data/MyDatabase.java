@@ -23,7 +23,7 @@ public class MyDatabase {
     }
     public SimpleCursorAdapter getMyListAdapter(){
         SQLiteDatabase db=helper.getReadableDatabase();
-        Cursor cursor=db.query("STATISTICS",new String[]{"_id","DATE","DISTANCE","CALORIE"},null,null,null,null,null);
+        Cursor cursor=db.query("STATISTICS",new String[]{"_id","DATE","DISTANCE","CALORIE"},null,null,null,null,"_id DESC");
         SimpleCursorAdapter adapter=new SimpleCursorAdapter(context,
                 R.layout.view_list_single,
                 cursor,
@@ -64,11 +64,13 @@ public class MyDatabase {
                 cv.put("CALORIE", calorie);
                 db.insert("STATISTICS", null, cv);
             }else{
-                int initial=cursor.getInt(1);
-                int d=initial+dist;
+                int initialD=cursor.getInt(1);
+                int d=initialD+dist;
+                float initialC=cursor.getFloat(2);
+                float c=initialC+calorie;
                 ContentValues cv=new ContentValues();
                 cv.put("DISTANCE",d);
-                cv.put("CALORIE", calorie);
+                cv.put("CALORIE", c);
                 db.update("STATISTICS",cv,"DATE=?",new String[]{date});
             }
             db.close();

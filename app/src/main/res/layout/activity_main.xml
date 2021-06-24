@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="225dp"
             android:progress="1"
+            android:max="100"
             app:indicatorColor="#FF0000"
             app:indicatorDirectionCircular="counterclockwise"
             app:indicatorSize="225dp"
@@ -35,6 +36,7 @@
             android:id="@+id/stepsView"
             android:layout_gravity="center"
             android:text="0 \n Steps"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="wrap_content"/>
@@ -58,11 +60,18 @@
         android:text="Calories Burned \n 200 calories"
         android:textStyle="bold"
         android:textSize="15dp"/>
-    <ListView
-        android:id="@+id/listView"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/inM"
         android:background="#D3D3D3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        >
+        <ListView
+            android:layout_margin="2dp"
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
 
 </RelativeLayout>
