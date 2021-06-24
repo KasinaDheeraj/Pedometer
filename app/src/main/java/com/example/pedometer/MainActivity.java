@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     TextView stepsView;
-    TextView distanceInMeters;
+    TextView distanceInMetres;
     TextView caloriesBurnt;
     ProgressBar pBar;
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         stepsView=findViewById(R.id.stepsView);
-        distanceInMeters=findViewById(R.id.inM);
+        distanceInMetres=findViewById(R.id.inM);
         caloriesBurnt=findViewById(R.id.calories);
         pBar=findViewById(R.id.progress);
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         stepsView.setText(STEPS+"\n STEPS");
 
         int m= (int) (STEPS*0.762);
-        distanceInMeters.setText(m+"\n Meters");
+        distanceInMetres.setText(m+"\n Metres");
 
         float caloriesc= (float) (m*0.76);
         caloriesBurnt.setText(caloriesc+"\n Calories Burnt");
