@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         writeHandler.post(new Runnable() {
             @Override
             public void run() {
-                SimpleDateFormat sdf=new SimpleDateFormat("E,d MM YYYY");
+                SimpleDateFormat sdf=new SimpleDateFormat("E,d MMM YYYY");
                 sdf.setTimeZone(TimeZone.getTimeZone("IST"));
                 String dateNow=sdf.format(new Date());
                 //String datenow=new SimpleDateFormat("E,d MM YYYY").format(Calendar.getInstance().getTime());
