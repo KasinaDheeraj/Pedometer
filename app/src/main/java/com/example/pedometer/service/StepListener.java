@@ -51,23 +51,6 @@ public class StepListener extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        sensorManager=(SensorManager) getSystemService(Context.SENSOR_SERVICE);
-//        Sensor stepCounter=sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-//
-//        if(stepCounter!=null) {
-//            final boolean batchMode = sensorManager.registerListener(
-//                    this, stepCounter, SensorManager.SENSOR_DELAY_FASTEST,2000000);
-//            if (!batchMode) {
-//                Log.e("BATCH_MODE", "~~~~~~~~~~~Could not register batch mode for sensor~~~~~~~~~~~");
-//                Toast.makeText(getApplicationContext(),"Could not register batch mode for sensor",Toast.LENGTH_SHORT).show();
-//            }else{
-//                Toast.makeText(this, "Started Counting Steps", Toast.LENGTH_LONG).show();
-//            }
-//
-//        } else {
-//            Toast.makeText(this, "Device not Compatible!", Toast.LENGTH_LONG).show();
-//            this.stopSelf();
-//        }
         return START_NOT_STICKY;
     }
 
