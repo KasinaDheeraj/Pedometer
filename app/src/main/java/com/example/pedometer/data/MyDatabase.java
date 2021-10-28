@@ -46,6 +46,7 @@ public class MyDatabase {
             this.calorie = f;
         }
     }
+
     private class writeToDB extends AsyncTask<MyTaskParams,Void,Void>{
 
         @Override
